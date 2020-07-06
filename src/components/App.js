@@ -12,6 +12,20 @@ class App extends React.Component {
 
     addFish = (fish) => {
         console.log("Adding a fish!");
+        // Need to use existing State functionality in React or won't work
+        // 1. Take copy of existing state. We never want to reach in to state and modify it directly (Mutation)
+        const fishes = { ...this.state.fishes }; // Object spread
+
+        // 2. Add new fish to that fishes variable
+        // Rather than use imcrementing numbers for unique IDs, use the time by milliseconds
+        fishes[`fish${Date.now()}`] = fish;
+
+        // 3. Set the new fishes object to state
+        this.setState({
+            // If property and value are the same we can just type it out once
+            // fishes: fishes
+            fishes
+        });
     }
 
     render() {
