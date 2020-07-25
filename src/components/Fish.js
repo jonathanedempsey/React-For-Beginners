@@ -3,7 +3,7 @@ import { formatPrice } from "../helpers";
 
 class Fish extends React.Component {
     render() {
-        const {image, name, price, destribption, status} = this.props.details;
+        const {image, name, price, desc, status} = this.props.details;
 
         return (
             <li className="menu-fish">
@@ -11,6 +11,8 @@ class Fish extends React.Component {
                 <h3 className="fish-name">{name}
                     <span className="price">{formatPrice(price)}</span>
                 </h3>
+                <p>{desc}</p>
+                <button>Add To Cart</button>
             </li>
         );
     }
