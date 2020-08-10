@@ -4,6 +4,7 @@ import Order from "./Order";
 import Inventory from "./Inventory";
 import sampleFishes from "../sample-fishes";
 import Fish from "./Fish";
+import base from '../base';
 
 class App extends React.Component {
     // Set empty state on App load
@@ -11,6 +12,15 @@ class App extends React.Component {
         fishes: {},
         order: {}
     };
+
+    // Executes after component is fully rendered
+    componentDidMount() {
+        const { params } = this.props.match;
+        this.ref = base.syncState(`${params.storeId}/fishes`, {
+          context: this,
+          state: "fishes"
+        });
+      }
 
     addFish = (fish) => {
         console.log("Adding a fish!");
