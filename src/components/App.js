@@ -13,14 +13,22 @@ class App extends React.Component {
         order: {}
     };
 
+
     // Executes after component is fully rendered
     componentDidMount() {
         const { params } = this.props.match;
+        // Sync fishes with this specific store name
         this.ref = base.syncState(`${params.storeId}/fishes`, {
-          context: this,
-          state: "fishes"
+            context: this,
+            state: "fishes"
         });
-      }
+    }
+
+    // Memory leak fix!
+    // Stop listening for changes if the app is exited
+    componentWillUnmount() {
+        base.removeBinding(this.ref);
+    }
 
     addFish = (fish) => {
         console.log("Adding a fish!");
