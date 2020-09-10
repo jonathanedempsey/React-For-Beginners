@@ -17,6 +17,16 @@ class App extends React.Component {
     // Executes after component is fully rendered
     componentDidMount() {
         const { params } = this.props.match;
+
+        // First reinstate our local storage.
+        const localStorageRef = localStorage.getItem(params.storeId);
+
+        // If a local storage value existed, then reinstate it
+        if(localStorageRef) {
+            // String to Object
+            this.setState({ order: JSON.parse(localStorageRef) });
+        }
+
         // Sync fishes with this specific store name
         this.ref = base.syncState(`${params.storeId}/fishes`, {
             context: this,
@@ -24,11 +34,21 @@ class App extends React.Component {
         });
     }
 
+    // Trigger when order is added.
+    // Store the user's order in local storage
+    componentDidUpdate() {
+        console.log(this.state.order);
+        // Object to String
+        localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order));
+    }
+
     // Memory leak fix!
     // Stop listening for changes if the app is exited
     componentWillUnmount() {
         base.removeBinding(this.ref);
     }
+
+
 
     addFish = (fish) => {
         console.log("Adding a fish!");
