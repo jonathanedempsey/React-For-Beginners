@@ -17,6 +17,7 @@ const Header = ({ tagline }) => (
     </header>
 );
 
+// prop validation
 Header.propTypes = {
     tagline: PropTypes.string.isRequired
 }
