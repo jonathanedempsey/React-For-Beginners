@@ -5,6 +5,7 @@ import Inventory from "./Inventory";
 import sampleFishes from "../sample-fishes";
 import Fish from "./Fish";
 import base from '../base';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
     // Set empty state on App load
@@ -13,6 +14,10 @@ class App extends React.Component {
         order: {}
     };
 
+    // Validation
+    static propTypes = {
+        match: PropTypes.object
+    }
 
     // Executes after component is fully rendered
     componentDidMount() {
