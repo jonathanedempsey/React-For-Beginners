@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class EditFishForm extends React.Component {
+    // Validation
     static propTypes = {
         fish: PropTypes.shape({
             image: PropTypes.string,

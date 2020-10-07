@@ -4,6 +4,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 
 class Order extends React.Component {
+    // Validation
     static propTypes = {
         fishes: PropTypes.object,
         order: PropTypes.object,

@@ -8,6 +8,7 @@ class AddFishForm extends React.Component {
     descRef = React.createRef();
     imageRef = React.createRef();
 
+    // Validation
     static propTypes = {
         addFish: PropTypes.func
     }

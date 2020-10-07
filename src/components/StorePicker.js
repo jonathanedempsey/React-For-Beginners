@@ -1,8 +1,14 @@
 import React, { Fragment } from 'react';
 import { getFunName } from "../helpers";
+import PropTypes from "prop-types";
 
 class StorePicker extends React.Component {
     myInput = React.createRef();
+
+    // Validation
+    static propTypes = {
+        history: PropTypes.object
+    };
 
     // Option 1 : Since goToStore isn't bound in React by default (because it's custom made by us),
     // we need to bind it so 'this' will work in our StorePicker class

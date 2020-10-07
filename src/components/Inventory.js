@@ -4,6 +4,7 @@ import EditFishForm from './EditFishForm';
 import PropTypes from "prop-types";
 
 class Inventory extends React.Component {
+    // Validation
     static propTypes = {
         fishes: PropTypes.object,
         updateFish: PropTypes.func,
