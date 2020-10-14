@@ -14,8 +14,8 @@ class Inventory extends React.Component {
         loadSampleFishes: PropTypes.func
     };
 
-    authenticate = () => {
-        alert('Clicked');
+    authenticate = provider => {
+        alert(provider);
     }
 
     render() {
