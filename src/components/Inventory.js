@@ -1,7 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import AddFishForm from './AddFishForm';
 import EditFishForm from './EditFishForm';
-import PropTypes from "prop-types";
+import Login from './Login';
+
 
 class Inventory extends React.Component {
     // Validation
@@ -13,6 +15,7 @@ class Inventory extends React.Component {
     };
 
     render() {
+        return <Login />
         return (
             <div className="inventory">
                 <h2>Inventory</h2>
