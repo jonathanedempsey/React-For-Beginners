@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import firebase from 'firebase';
 import AddFishForm from './AddFishForm';
 import EditFishForm from './EditFishForm';
 import Login from './Login';
+import base, { firebaseApp } from "../base";
+
 
 
 class Inventory extends React.Component {
@@ -14,8 +17,29 @@ class Inventory extends React.Component {
         loadSampleFishes: PropTypes.func
     };
 
+    authHandler = async (authData) => {
+        // console.log(authData);
+        // 1. Look up current store in the firebase database
+        // fetch() will return a promise. Put await in front of it to get the store name variable instead
+        const store = await base.fetch(this.props.storeId, { context: this });
+        // console.log(store);
+
+        //2. Claim it if there is no owner
+        if(!store.owner) {
+            // Save it as our own
+            await base.post(`${this.props.storeId}/owner`, {
+                data: authData.user.uid
+            })
+        }
+
+        // 3. Set the state of inventory component to reflect the current user
+
+    }
+
     authenticate = provider => {
-        alert(provider);
+        // Dynimcally look up function name of clicked provider
+        const authProvider = new firebase.auth[`${provider}AuthProvider`]();
+        firebaseApp.auth().signInWithPopup(authProvider).then(this.authHandler);
     }
 
     render() {
