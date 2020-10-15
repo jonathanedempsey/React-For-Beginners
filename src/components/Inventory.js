@@ -23,6 +23,16 @@ class Inventory extends React.Component {
         owner: null
     };
 
+    // Each time we load the page, check if the user was already logged in.
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            // If they are, pass the user to our authHandler which checks if they're the owner
+            if(user) {
+                this.authHandler({ user });
+            }
+        });
+    }
+
     authHandler = async (authData) => {
         // console.log(authData);
         // 1. Look up current store in the firebase database
