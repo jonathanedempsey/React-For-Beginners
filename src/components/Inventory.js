@@ -17,6 +17,12 @@ class Inventory extends React.Component {
         loadSampleFishes: PropTypes.func
     };
 
+    // On page load, set owner and uid to null
+    state = {
+        uid: null,
+        owner: null
+    };
+
     authHandler = async (authData) => {
         // console.log(authData);
         // 1. Look up current store in the firebase database
@@ -29,10 +35,16 @@ class Inventory extends React.Component {
             // Save it as our own
             await base.post(`${this.props.storeId}/owner`, {
                 data: authData.user.uid
-            })
+            });
         }
 
         // 3. Set the state of inventory component to reflect the current user
+        // Find the current logged in user and find the store owner, if the same user allow access to Inventory
+        // Otherwise give user error saying they aren't the store owner
+        this.setState({
+            uid:authData.user.uid,
+            owner: store.owner || authData.user.uid
+        });
 
     }
 
@@ -43,7 +55,23 @@ class Inventory extends React.Component {
     }
 
     render() {
-        return <Login authenticate={this.authenticate}/>
+        // 1. Check if user is logged in
+        if(!this.state.uid) {
+            // If not logged in, load login buttons
+            return <Login authenticate={this.authenticate} />
+        }
+
+        // 2. Check if they are not the store owner
+        if(this.state.uid !== this.state.owner) {
+            // If the state user ID and Store owner ID dont match, print error
+            return (
+                <div>
+                    <p>Sorry, you are not the owner</p>
+                </div>
+            );
+        }
+
+        // 3. No objections, they must be the owner. Just render the inventory
         return (
             <div className="inventory">
                 <h2>Inventory</h2>
