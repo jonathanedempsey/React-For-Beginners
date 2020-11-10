@@ -53,3 +53,5 @@ node_modules/
 
 # ignore error_log
 error_log
+
+.vercel
